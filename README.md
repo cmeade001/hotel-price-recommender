@@ -4,7 +4,7 @@ The objective for this project is to recommend optimal pricing in order to maxim
 
 ## Approach
 The approach for this project can be boiled down to 4 steps:
-1. Determine the relationship between the independent variable Price, and the dependent variable Rooms Booked.
+1. Determine the relationship between the independent variable Price, and the dependent variable Rooms Booked. (Using multiple-regression model's regression coefficient for price)
 2. Establish a "baseline" forecast for Rooms Booked assuming constant price.
 3. Determine expected profit for the baseline forecast, using additional inputs for a comprehensive profit calculation.
 4. Compute resultant profit from changes to the independent variable Price, given the relationship between price, rooms booked, and profit.
@@ -30,8 +30,25 @@ In addition, given the industry for the customer of the project - travel - I ass
 One task which was particularly challenging for me (but shouldn't have been, and likely wouldn't be for most people) was creating a factor for days within +/-N days of a holiday - the premise being that a *weekend's proximity* to a holiday and not simply the exact day of a holiday should be a better predictor of changes in booking behavior. I accomplished this using SQL and my script is attached. And, I was relieved to see, this derived variable was strongly correlated and made the cut for the final model :)
 
 ## Phase 2 - Feature Extraction & Model Validation
+The modeling approach used for this project was multiple regression (lm function in r). There were many more model variations than what's posted in the final script, but the process boiled down to:
+1. Input all features
+2. Summarize
+3. Remove insignificant features (p-value>.05)
+4. Input remaining features
+n. Repeat
+
+At the end, I was left with 16 IVs which had an adjusted r-squared of ~56%. Not wonderful but not horrible - summary below:
+
 ![feature-extraction-final-model](https://github.com/cmeade001/img/blob/master/feature-extraction-final-model.png?raw=true)
+
+I also evaluated this model against several other model generations:
+
 ![feature-extraction-cv-output](https://github.com/cmeade001/img/blob/master/feature-extraction-cv-output.png?raw=true)
+
+Surprisingly, the model which featured EVERY independent variable - close to the first generation - performed the best in every measure besides Schwarz's Bayesion Information Criterion - which is easily explained by the fact that this measure more heavily penalizes the number of parameters than any other measure of model fit.
+
+Given the insignificant drop in explained variation (adjusted r squared) between the full model and the model with fewer inputs, I opted to use the smaller model for subsequent outputs. Code for the final model is below:
+
 ```
 #Final Model
 fu002<-lm(booking_total~is_weekend+
@@ -51,6 +68,7 @@ fu002<-lm(booking_total~is_weekend+
             seosearch45+
           +priceact, data=crs01)
 ```
+One particularly frustrating realization from this process was that 
 
 ## Phase 3 - Forecasting
 ![forecast-univariate-time-series](https://github.com/cmeade001/img/blob/master/forecast-univariate-ts.png?raw=true)
@@ -152,4 +170,4 @@ To this point, I've kept a laundry list of areas requiring improvement. However,
 Hyndman, R.J., & Athanasopoulos, G. (2018) Forecasting: principles and practice, 2nd edition, OTexts: Melbourne, Australia. OTexts.com/fpp2. Accessed on 3/9/18
 Rob Hyndman (2018). fpp2: Data for "Forecasting: Principles and Practice" (2nd Edition). R package version 2.3.  https://CRAN.R-project.org/package=fpp2
 Davis, G. B. (1982). Strategies for information requirements determination. IBM Systems Journal, 21(1). Retrieved March 09, 2019.
-
+R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
