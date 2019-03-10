@@ -133,7 +133,7 @@ This looks good enough to proceed with a prototybe, but not as tight as I'd want
 
 For more scientific testion, I used checkresiduals() and accuracy() functions, with the following results:
 
-![forecast-residuals](https://github.com/cmeade001/img/blob/master/forecasting-check-residuals.png?raw=true)
+![forecast-residuals](https://github.com/cmeade001/img/blob/master/forecasting-checkresiduals.png?raw=true)
 
 ```
 > accuracy(unifcst)
