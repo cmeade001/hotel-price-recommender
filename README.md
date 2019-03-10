@@ -91,6 +91,7 @@ Regression forecasts are a little trickier. I burned a couple of hours trying to
 There were some predictors in our model which we could have easily created future data for - day of week, month, holidays, etc. Some others would require additional feedback from the customer, which takes time. Still others (web pageviews, paid search queries, etc) wouldn't be possible to collect for future dates. So, how to solve for all three categories quickly? I just ran a ts forecast for ALL predictors, then used the predicted values for the predictors as inputs for the LM forecast. It's a hack, and not something you'd want in a final product, but pretty cool that you could run it in 10 seconds to at least estimate and unblock.
 
 Here is the output for the regression forecast:
+
 ![forecast-regression](https://github.com/cmeade001/img/blob/master/forecast-regression.png?raw=true)
 
 Based on the eye-test alone, it's clear that the univariate ts forecast is more appropriate. The highs are too low, lows are too high, and spikes go way higher than any historical observations. The "derivation of a derivation" effect is likely not helping our case.
@@ -122,7 +123,22 @@ By transforming the forecast in this way we can see the output is now limited by
 ![forecast-after-limits](https://github.com/cmeade001/img/blob/master/forecast-after-limits.png?raw=true)
 
 ### Forecast Validation
+Even though I pretty much wrote off the regression forecast already, I did want to run more formal validation on the univariate time-series forecast. To start, I produced a cross-validation dataset - forecasting a period where I have actual observations, and plotted the result using a loess line to smooth the noise in the daily results:
 
+![forecast-validation](https://github.com/cmeade001/img/blob/master/forecast-validation.png?raw=true)
+
+This looks good enough to proceed with a prototybe, but not as tight as I'd want to see for a production, customer-facing product. Another thing you can't see without the daily data, is the ts() transformations appear to have caused forecast dates to be slightly out of sync with actual.
+
+For more scientific testion, I used checkresiduals() and accuracy() functions, with the following results:
+
+![forecast-residuals(https://github.com/cmeade001/img/blob/master/forecasting-check-residuals.png?raw=true)
+
+```
+> accuracy(unifcst)
+                  ME     RMSE     MAE      MPE     MAPE     MASE     ACF1
+Training set 59.9755 64.85173 59.9755 98.99535 98.99535 3.378268 0.586669
+```
+Those results are... not wonderful. The root mean standard error in particular is much higher than benchmarks I've seen in other forecasting work. However, they are better than the lm forecast results, they're the best we have and they're not the worst in the world. This is another area ear-marked for enhancement, and I believe the best approach would be to improve the base lm model and capture future values for the improved model's predictors to use in a regression forecast.
 
 Code for the final univariate TS forecast used in the project is below:
 ```
@@ -152,6 +168,17 @@ unifcst$x <- c
 ```
 
 ## Phase 4 - Marginal Returns
+As stated previously, the objective for this project is to find the profit-maximizing combination of hotel price x rooms booked. In addition to the Price : Rooms Booked coefficient and the baseline forecast detailed thus far, we also need the inputs for a profit function. Pretecting anonymity, these dummy values are used for the purpose of this project:
+
+* Fixed hotel cost per night: $1,000
+* Cost per occupied room per night: -$75
+* Upsell per room per night: $50
+* Price : Rooms Booked Coefficient (multiplier): 0.25
+* Price : Rooms Booked relationship transformation: -0.5
+
+In addition to these inputs, I constrained the model to cap change in Rooms Booked at +/- 10% from baseline. This is a shortcut to protect us from drastic recommendations, which in the future should be replaced by an exponential decay function.
+
+The ideal process for marginal returns would be building (or finding) an r function to produce step-wise outputs with exponential decay. I couldn't find a suitable function and haven't yet built a fully automated one, so for now the model computes 5 profit steps between -10% < baseline < +10%. We then feed r the association between profit steps and price steps, grab the max profit from each row and return the associated price. Code below:
 
 ```
 #Output ts() object from unifcst & pfcst. Don't know future list prices so using a forecast as a placeholder.
@@ -209,8 +236,14 @@ ptable$maxprofitrooms<-ifelse(ptable$priceindex==3,ptable$blrooms,ifelse(ptable$
 ```
 
 ## Phase 5 - Optimal Price & Maximum Profit Outputs
+And voila! We have an output.
+
+The model's recommendation to the customer is over the next year, to increase price by an average of +29% in order to increase profit +23% on -10% fewer bookings.
+
 ![profit-table](https://github.com/cmeade001/img/blob/master/profit-chart.png?raw=true)
+
 ![baseline-vs-max-price](https://github.com/cmeade001/img/blob/master/baseline-v-max-price.png?raw=true)
+
 ![baseline-vs-max-profit](https://github.com/cmeade001/img/blob/master/baseline-v-max-profit.png?raw=true)
 
 ## Conclusions
