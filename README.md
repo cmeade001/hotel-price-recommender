@@ -11,7 +11,7 @@ The approach for this project can be boiled down to 4 steps:
 
 Because the project uses real data and will ultimately be delivered to a customer, priority was given to completing all 4 of the above steps, occasionally at the expense of further data collection, model tuning and other refinements. Basically - I took a "prototype" approach, as illustrated below:
 
-![gordon-davis-uncertainty](https://github.com/cmeade001/img/blob/master/gordon-davis-uncertainty.PNG?raw=true)
+![gordon-davis-uncertainty](https://github.com/cmeade001/img/blob/master/gordon-davis-uncertainty.PNG)
 
 This is a truncated version of Gordon Davis' 4 levels of uncertainty, and simply highlights that for the purview of this project the degree of certainty in the output was sacrificed in favor of completeness of the prototype.
 
