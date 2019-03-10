@@ -68,7 +68,11 @@ fu002<-lm(booking_total~is_weekend+
             seosearch45+
           +priceact, data=crs01)
 ```
-One particularly frustrating realization from this process was that 
+One particularly frustrating realization from this process was that the relationship between Price and Rooms Booked is *positive*. This is an issue because as previously stated the approach calls for using Price's coefficient (0.25) as an input to the diminishing returns model, and this coefficient essentially says that for ever $4 increase in price rooms booked will *increase* by 1.
+
+While it's possible that some fluke of psychology leads consumers to have a postivie association with higher hotel prices, it seems more likely to be caused by the fact that hotel pricing is already variable and demand-based. My theory is that the model is picking up on non-causal correlation between seasonal change in price and bookings.
+
+The appropriate solution to validate this theory is to create a seasonally-adjusted price attribute to use in the model. However, given limited time I took a shortcut here - the value I passed to the marginal returns step just cut the price coefficient in half and made it negative. Not particularly scientific, but allows us to build the illustration.
 
 ## Phase 3 - Forecasting
 ![forecast-univariate-time-series](https://github.com/cmeade001/img/blob/master/forecast-univariate-ts.png?raw=true)
