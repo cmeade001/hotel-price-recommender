@@ -3,7 +3,17 @@
 The objective for this project is to recommend optimal pricing in order to maximize profit for a local hotel owner. I was fortunate enough to be able to partner with a local ML startup for this project, and the foundational data used for the exercise was real historical data from one of their clients - a local hotel owner. In order preserve privacy, the real prices have been transformed and the data provided does not contain any identifiable attributes.
 
 ## Approach
+The approach for this project can be boiled down to 4 steps:
+1. Determine the relationship between the independent variable Price, and the dependent variable Rooms Booked.
+2. Establish a "baseline" forecast for Rooms Booked assuming constant price.
+3. Determine expected profit for the baseline forecast, using additional inputs for a comprehensive profit calculation.
+4. Compute resultant profit from changes to the independent variable Price, given the relationship between price, rooms booked, and profit.
+
+Because the project uses real data and will ultimately be delivered to a customer, priority was given to completing all 4 of the above steps, occasionally at the expense of further data collection, model tuning and other refinements. Basically - I took a "prototype" approach, as illustrated below:
+
 ![gordon-davis-uncertainty](https://github.com/cmeade001/img/blob/master/gordon-davis-uncertainty.PNG?raw=true)
+
+This is a truncated version of Gordon Davis' 4 levels of uncertainty, and simply highlights that for the purview of this project the degree of certainty in the output was sacrificed in favor of completeness of the prototype.
 
 ## Project Phases
 1. Data Collection & Cleanup
