@@ -31,6 +31,7 @@ One task which was particularly challenging for me (but shouldn't have been, and
 
 ## Phase 2 - Feature Extraction & Model Validation
 The modeling approach used for this project was multiple regression (lm function in r). There were many more model variations than what's posted in the final script, but the process boiled down to:
+
 1. Input all features
 2. Summarize
 3. Remove insignificant features (p-value>.05)
@@ -80,7 +81,8 @@ Forecasting is where things get fun. Rob Hyndman is the god of forecasting and h
 Initially, I'd planned to use the lm model from phase 2 to produce the forecast, but in researching Hyndman's textbook I learned about the science behind univariate time-series forecasts and decided to try both in parallel and pick the best one.
 
 ### Forecasting with Univariate Time-Series Data
-The first step for both methods is converting the modeling data into a time-series (ts) object. From there, you can pretty much run the forecast() package:
+The first step for both methods is converting the modeling data into a time-series (ts) object. From there, you can pretty much run the forecast() package.
+
 ![forecast-univariate-time-series](https://github.com/cmeade001/img/blob/master/forecast-univariate-ts.png?raw=true)
 
 Notice the forecast package automatically projects into the future based on the horizon (h) you define for it. Neat.
