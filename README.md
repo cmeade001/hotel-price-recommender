@@ -3,7 +3,7 @@
 The objective for this project is to recommend optimal pricing in order to maximize profit for a local hotel owner. I was fortunate enough to be able to partner with a local ML startup for this project, and the foundational data used for the exercise was real historical data from one of their clients - a local hotel owner. In order preserve privacy, the real prices have been transformed and the data provided does not contain any identifiable attributes.
 
 ## Approach
-
+![gordon-davis-uncertainty](https://github.com/cmeade001/img/blob/master/baseline-v-max-price.png?raw=true)
 
 ## Project Phases
 1. Data Collection & Cleanup
@@ -16,14 +16,59 @@ The objective for this project is to recommend optimal pricing in order to maxim
 ## Phase 1 - Data Collection & Cleanup
 ## Phase 2 - Data Enhancement & Exploration
 ## Phase 3 - Feature Extraction & Model Validation
+![feature-extraction-final-model](https://github.com/cmeade001/img/blob/master/feature-extraction-final-model.png?raw=true)
+![feature-extraction-cv-output](https://github.com/cmeade001/img/blob/master/feature-extraction-cv-output.png?raw=true)
+```
+#Final Model
+fu002<-lm(booking_total~is_weekend+
+            jan+
+            feb+
+            mar+
+            apr+
+            may+
+            sep+
+            oct+
+            nov+
+            sun+
+            mon+
+            fri+
+            holiday_5+
+            websession+
+            seosearch45+
+          +priceact, data=crs01)
 ```
 
-```
 ## Phase 4 - Forecasting
+![forecast-univariate-time-series](https://github.com/cmeade001/img/blob/master/forecast-univariate-ts.png?raw=true)
+![forecast-regression](https://github.com/cmeade001/img/blob/master/forecast-regression.png?raw=true)
+![forecast-before-limits](https://github.com/cmeade001/img/blob/master/forecast-before-limits.png?raw=true)
+![forecast-after-limits](https://github.com/cmeade001/img/blob/master/forecast-after-limits.png?raw=true)
+```
+#Final Forecast - Univariate TS
+#Create dataset for time series vector
+fppbkttl<-select(crs01, booking_total, priceact)
+#Convert univariate data to time-series vector
+tsfppbkttl<-ts(fppbkttl,start=c(2015,1),frequency=365.25)
+unifcst<-forecast(tsfppbkttl[,"booking_total"],h=365.25)
+plot(unifcst)
+pfcst<-forecast(tsfppbkttl[,"priceact"],h=365.25)
+write.csv(unifcst,"unifcst01.csv")
 
+#Logit transformation for upper and lower limits
+a=1
+b=93
+c=tsfppbkttl[,"booking_total"]
+
+#Transform prediction to log scale
+unifcst<-forecast(log((c-a)/(b-c)),h=365.25)
+
+#Convert log scale back to original scale
+unifcst$mean <- (b-a)*exp(unifcst$mean)/(1+exp(unifcst$mean)) + a
+unifcst$lower <- (b-a)*exp(unifcst$lower)/(1+exp(unifcst$lower)) + a
+unifcst$upper <- (b-a)*exp(unifcst$upper)/(1+exp(unifcst$upper)) + a
+unifcst$x <- c
 ```
 
-```
 ## Phase 5 - Marginal Returns
 
 ```
@@ -82,10 +127,12 @@ ptable$maxprofitrooms<-ifelse(ptable$priceindex==3,ptable$blrooms,ifelse(ptable$
 ```
 
 ## Phase 6 - Optimal Price & Maximum Profit Outputs
+![profit-table](https://github.com/cmeade001/img/blob/master/profit-chart.png?raw=true)
 ![baseline-vs-max-price](https://github.com/cmeade001/img/blob/master/baseline-v-max-price.png?raw=true)
 ![baseline-vs-max-profit](https://github.com/cmeade001/img/blob/master/baseline-v-max-profit.png?raw=true)
 
 ## Conclusions
+To this point, I've kept a laundry list of areas requiring improvement. However, I believe the project in its current form does a good job at demonstrating the concept in a working environment with real recommendations as an output. Given time for improvements, this comes close to an approach which could be applied in a live testing environment.
 
 ## References
 Hyndman, R.J., & Athanasopoulos, G. (2018) Forecasting: principles and practice, 2nd edition, OTexts: Melbourne, Australia. OTexts.com/fpp2. Accessed on 3/9/18
