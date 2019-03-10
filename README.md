@@ -129,9 +129,9 @@ Even though I pretty much wrote off the regression forecast already, I did want 
 
 ![forecast-validation](https://github.com/cmeade001/img/blob/master/forecasting-validation.png?raw=true)
 
-This looks good enough to proceed with a prototybe, but not as tight as I'd want to see for a production, customer-facing product. Another thing you can't see without the daily data, is the ts() transformations appear to have caused forecast dates to be slightly out of sync with actual.
+This looks good enough to proceed with a prototype, but not as tight as I'd want to see for a production, customer-facing product. Another thing you can't see without the daily data, is the ts() transformations appear to have caused forecast dates to be slightly out of sync with actual.
 
-For more scientific testion, I used checkresiduals() and accuracy() functions, with the following results:
+For more scientific testing, I used checkresiduals() and accuracy() functions, with the following results:
 
 ![forecast-residuals](https://github.com/cmeade001/img/blob/master/forecasting-checkresiduals.png?raw=true)
 
