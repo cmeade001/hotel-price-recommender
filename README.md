@@ -75,10 +75,56 @@ While it's possible that some fluke of psychology leads consumers to have a post
 The appropriate solution to validate this theory is to create a seasonally-adjusted price attribute to use in the model. However, given limited time I took a shortcut here - the value I passed to the marginal returns step just cut the price coefficient in half and made it negative. Not particularly scientific, but allows us to build the illustration.
 
 ## Phase 3 - Forecasting
+Forecasting is where things get fun. Rob Hyndman is the god of forecasting and has all but open-sourced his brain between the r packages and the [content](https://otexts.com/fpp2/) he's published - see references for more information.
+
+Initially, I'd planned to use the lm model from phase 2 to produce the forecast, but in researching Hyndman's textbook I learned about the science behind univariate time-series forecasts and decided to try both in parallel and pick the best one.
+
+### Forecasting with Univariate Time-Series Data
+The first step for both methods is converting the modeling data into a time-series (ts) object. From there, you can pretty much run the forecast() package:
 ![forecast-univariate-time-series](https://github.com/cmeade001/img/blob/master/forecast-univariate-ts.png?raw=true)
+
+Notice the forecast package automatically projects into the future based on the horizon (h) you define for it. Neat.
+
+### Forecasting with Regression
+Regression forecasts are a little trickier. I burned a couple of hours trying to figure out why my lm forecasts weren't providing future projections, before I realized the regression forecast isn't using trailing dependent-variable data to project the future - it's using the attributes in the lm model. So, you need to have future observations for your predictors in order to forecast with regression.
+
+There were some predictors in our model which we could have easily created future data for - day of week, month, holidays, etc. Some others would require additional feedback from the customer, which takes time. Still others (web pageviews, paid search queries, etc) wouldn't be possible to collect for future dates. So, how to solve for all three categories quickly? I just ran a ts forecast for ALL predictors, then used the predicted values for the predictors as inputs for the LM forecast. It's a hack, and not something you'd want in a final product, but pretty cool that you could run it in 10 seconds to at least estimate and unblock.
+
+Here is the output for the regression forecast:
 ![forecast-regression](https://github.com/cmeade001/img/blob/master/forecast-regression.png?raw=true)
+
+Based on the eye-test alone, it's clear that the univariate ts forecast is more appropriate. The highs are too low, lows are too high, and spikes go way higher than any historical observations. The "derivation of a derivation" effect is likely not helping our case.
+
+Remembering that this forecast's foundation is our lm model which is also the father of our Price : Rooms Booked coefficient, a conservative application of the price coefficient in the marginal returns model is advised.
+
+### Forecasting with Limits
+One other problem with the base forecast package is that it doesn't have inputs for upper and lower limits. In the case of this project, it's not possible to book fewer than 0 rooms, and the transformed max capacity for the hotel is 90 rooms. So, the upper and lower limits of the forecast are projecting impossible values:
+
 ![forecast-before-limits](https://github.com/cmeade001/img/blob/master/forecast-before-limits.png?raw=true)
+
+The solution for this problem is a scaled logit transformation:
+```
+a=1
+b=93
+c=tsfppbkttl[,"booking_total"]
+
+#Transform prediction to log scale
+unifcst<-forecast(log((c-a)/(b-c)),h=365.25)
+
+#Convert log scale back to original scale
+unifcst$mean <- (b-a)*exp(unifcst$mean)/(1+exp(unifcst$mean)) + a
+unifcst$lower <- (b-a)*exp(unifcst$lower)/(1+exp(unifcst$lower)) + a
+unifcst$upper <- (b-a)*exp(unifcst$upper)/(1+exp(unifcst$upper)) + a
+unifcst$x <- c
+```
+By transforming the forecast in this way we can see the output is now limited by the constraints we gave the model:
+
 ![forecast-after-limits](https://github.com/cmeade001/img/blob/master/forecast-after-limits.png?raw=true)
+
+### Forecast Validation
+
+
+Code for the final univariate TS forecast used in the project is below:
 ```
 #Final Forecast - Univariate TS
 #Create dataset for time series vector
