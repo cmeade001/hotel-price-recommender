@@ -1,0 +1,115 @@
+﻿Date,Holiday Code,Friendly,Type
+2015-01-01,nyd,New Year's Day,Federal
+2015-01-19,mlk,Martin Luther King Jr. Day,Federal
+2015-02-16,pres,President's Day,Federal
+2015-05-10,mom,Mother's Day,Federal
+2015-05-25,mem,Memorial Day,Federal
+2015-06-21,dad,Father's Day,Federal
+2015-07-04,ind,Independence Day,Federal
+2015-09-07,lbd,Labor Day,Federal
+2015-11-11,vet,Verterans Day,Federal
+2015-11-26,thx,Thanksgiving,Federal
+2015-11-27,bfr,Black Friday,Federal
+2015-12-25,chr,Christmas,Federal
+2016-01-01,nyd,New Year's Day,Federal
+2016-01-18,mlk,Martin Luther King Jr. Day,Federal
+2016-02-15,pres,President's Day,Federal
+2016-05-08,mom,Mother's Day,Federal
+2016-05-30,mem,Memorial Day,Federal
+2016-06-19,dad,Father's Day,Federal
+2016-07-04,ind,Independence Day,Federal
+2016-09-05,lbd,Labor Day,Federal
+2016-11-11,vet,Verterans Day,Federal
+2016-11-24,thx,Thanksgiving,Federal
+2016-11-25,bfr,Black Friday,Federal
+2016-12-25,chr,Christmas,Federal
+2017-01-01,nyd,New Year's Day,Federal
+2017-01-16,mlk,Martin Luther King Jr. Day,Federal
+2017-02-20,pres,President's Day,Federal
+2017-05-14,mom,Mother's Day,Federal
+2017-05-29,mem,Memorial Day,Federal
+2017-06-18,dad,Father's Day,Federal
+2017-07-04,ind,Independence Day,Federal
+2017-09-04,lbd,Labor Day,Federal
+2017-11-10,vet,Verterans Day,Federal
+2017-11-23,thx,Thanksgiving,Federal
+2017-11-24,bfr,Black Friday,Federal
+2017-12-25,chr,Christmas,Federal
+2018-01-01,nyd,New Year's Day,Federal
+2018-01-15,mlk,Martin Luther King Jr. Day,Federal
+2018-02-19,pres,President's Day,Federal
+2018-05-13,mom,Mother's Day,Federal
+2018-05-28,mem,Memorial Day,Federal
+2018-06-17,dad,Father's Day,Federal
+2018-07-04,ind,Independence Day,Federal
+2018-09-03,lbd,Labor Day,Federal
+2018-11-12,vet,Verterans Day,Federal
+2018-11-22,thx,Thanksgiving,Federal
+2018-11-23,bfr,Black Friday,Federal
+2018-12-25,chr,Christmas,Federal
+2019-01-01,nyd,New Year's Day,Federal
+2019-01-21,mlk,Martin Luther King Jr. Day,Federal
+2019-02-18,pres,President's Day,Federal
+2019-05-12,mom,Mother's Day,Federal
+2019-05-27,mem,Memorial Day,Federal
+2019-06-16,dad,Father's Day,Federal
+2019-07-04,ind,Independence Day,Federal
+2019-09-02,lbd,Labor Day,Federal
+2019-11-11,vet,Verterans Day,Federal
+2019-11-28,thx,Thanksgiving,Federal
+2019-11-29,bfr,Black Friday,Federal
+2019-12-25,chr,Christmas,Federal
+2015-02-15,mwb,Washington Midwinter Break,School
+2015-02-14,mwb,Washington Midwinter Break,School
+2016-02-15,mwb,Washington Midwinter Break,School
+2016-02-14,mwb,Washington Midwinter Break,School
+2017-02-15,mwb,Washington Midwinter Break,School
+2017-02-14,mwb,Washington Midwinter Break,School
+2018-02-15,mwb,Washington Midwinter Break,School
+2018-02-14,mwb,Washington Midwinter Break,School
+2019-02-15,mwb,Washington Midwinter Break,School
+2019-02-14,mwb,Washington Midwinter Break,School
+2018-10-04,wsu,Oktoberfest,Leavenworth
+2018-10-05,wsu,Oktoberfest,Leavenworth
+2018-10-11,wsu,Oktoberfest,Leavenworth
+2018-10-12,wsu,Oktoberfest,Leavenworth
+2018-10-18,wsu,Oktoberfest,Leavenworth
+2018-10-19,wsu,Oktoberfest,Leavenworth
+2017-09-29,wsu,Oktoberfest,Leavenworth
+2017-09-30,wsu,Oktoberfest,Leavenworth
+2017-10-06,wsu,Oktoberfest,Leavenworth
+2017-10-07,wsu,Oktoberfest,Leavenworth
+2017-10-13,wsu,Oktoberfest,Leavenworth
+2017-10-14,wsu,Oktoberfest,Leavenworth
+2016-09-30,wsu,Oktoberfest,Leavenworth
+2016-10-01,wsu,Oktoberfest,Leavenworth
+2016-10-07,wsu,Oktoberfest,Leavenworth
+2016-10-08,wsu,Oktoberfest,Leavenworth
+2016-10-14,wsu,Oktoberfest,Leavenworth
+2016-10-15,wsu,Oktoberfest,Leavenworth
+2015-10-05,wsu,Oktoberfest,Leavenworth
+2015-10-06,wsu,Oktoberfest,Leavenworth
+2015-10-12,wsu,Oktoberfest,Leavenworth
+2015-10-13,wsu,Oktoberfest,Leavenworth
+2015-10-19,wsu,Oktoberfest,Leavenworth
+2015-10-20,wsu,Oktoberfest,Leavenworth
+2018-04-02,spr,Spring Break,School
+2018-04-03,spr,Spring Break,School
+2018-04-04,spr,Spring Break,School
+2018-04-05,spr,Spring Break,School
+2018-04-06,spr,Spring Break,School
+2017-04-03,spr,Spring Break,School
+2017-04-04,spr,Spring Break,School
+2017-04-05,spr,Spring Break,School
+2017-04-06,spr,Spring Break,School
+2017-04-07,spr,Spring Break,School
+2016-04-11,spr,Spring Break,School
+2016-04-12,spr,Spring Break,School
+2016-04-13,spr,Spring Break,School
+2016-04-14,spr,Spring Break,School
+2016-04-15,spr,Spring Break,School
+2015-04-06,spr,Spring Break,School
+2015-04-07,spr,Spring Break,School
+2015-04-08,spr,Spring Break,School
+2015-04-09,spr,Spring Break,School
+2015-04-10,spr,Spring Break,School
