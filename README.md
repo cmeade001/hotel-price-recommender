@@ -127,13 +127,13 @@ By transforming the forecast in this way we can see the output is now limited by
 ### Forecast Validation
 Even though I pretty much wrote off the regression forecast already, I did want to run more formal validation on the univariate time-series forecast. To start, I produced a cross-validation dataset - forecasting a period where I have actual observations, and plotted the result using a loess line to smooth the noise in the daily results:
 
-![forecast-validation](https://github.com/cmeade001/img/blob/master/forecast-validation.png?raw=true)
+![forecast-validation](https://github.com/cmeade001/img/blob/master/forecasting-validation.png?raw=true)
 
 This looks good enough to proceed with a prototybe, but not as tight as I'd want to see for a production, customer-facing product. Another thing you can't see without the daily data, is the ts() transformations appear to have caused forecast dates to be slightly out of sync with actual.
 
 For more scientific testion, I used checkresiduals() and accuracy() functions, with the following results:
 
-![forecast-residuals(https://github.com/cmeade001/img/blob/master/forecasting-check-residuals.png?raw=true)
+![forecast-residuals](https://github.com/cmeade001/img/blob/master/forecasting-check-residuals.png?raw=true)
 
 ```
 > accuracy(unifcst)
