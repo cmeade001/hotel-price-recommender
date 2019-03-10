@@ -19,3 +19,9 @@ The objective for this project is to recommend optimal pricing in order to maxim
 ## Phase 4 - Forecasting
 ## Phase 5 - Marginal Returns
 ## Phase 6 - Optimal Price & Maximum Profit Outputs
+
+## Conclusions
+
+## References
+Hyndman, R.J., & Athanasopoulos, G. (2018) Forecasting: principles and practice, 2nd edition, OTexts: Melbourne, Australia. OTexts.com/fpp2. Accessed on 3/9/18
+Rob Hyndman (2018). fpp2: Data for "Forecasting: Principles and Practice" (2nd Edition). R package version 2.3.  https://CRAN.R-project.org/package=fpp2
