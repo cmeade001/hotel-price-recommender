@@ -16,22 +16,20 @@ Because the project uses real data and will ultimately be delivered to a custome
 This is a truncated version of Gordon Davis' 4 levels of uncertainty, and simply highlights that for the purview of this project the degree of certainty in the output was sacrificed in favor of completeness of the prototype.
 
 ## Project Phases
-1. Data Collection & Cleanup
-2. Data Enhancement & Exploration
-3. Feature Extraction & Model Validation
-4. Forecasting
-5. Marginal Returns
-6. Optimal Price & Maximum Profit Outputs
+1. Data Collection, Cleanup & Exploration
+2. Feature Extraction & Model Validation
+3. Forecasting
+4. Marginal Returns
+5. Optimal Price & Maximum Profit Outputs
 
 ## Phase 1 - Data Collection, Cleanup & Exploration
 One lesson learned during this project is the time required to gather data in the real world. Additionally, working with small businesses or immature data organizations necessitates more up-front time after collection working on cleanup. The core data used for this project was delivered primarily in PDF format, requiring some manual data entry and table transformation.
 
 In addition, given the industry for the customer of the project - travel - I assumed seasonality would be of paramount importance to the model. I spent time manually researching and compiling local, regional and national events and holidays over the historical period covered in the customer's data - about 4 years. The other challenge presented by seasonal data is that most variables are categorical - eg: day of week, month, holiday, etc. So, after getting input data in a useable format for exploration it also had to be transformed into factors with many more than 2 levels.
 
-One task which was particularly challenging for me (but shouldn't have been, and likely wouldn't be for most people) was creating a factor for days within +/-N days of a holiday - the premise being that proximity
+One task which was particularly challenging for me (but shouldn't have been, and likely wouldn't be for most people) was creating a factor for days within +/-N days of a holiday - the premise being that a *weekend's proximity* to a holiday and not simply the exact day of a holiday should be a better predictor of changes in booking behavior. I accomplished this using SQL and my script is attached. And, I was relieved to see, this derived variable was strongly correlated and made the cut for the final model :)
 
-## Phase 2 - Data Enhancement & Exploration
-## Phase 3 - Feature Extraction & Model Validation
+## Phase 2 - Feature Extraction & Model Validation
 ![feature-extraction-final-model](https://github.com/cmeade001/img/blob/master/feature-extraction-final-model.png?raw=true)
 ![feature-extraction-cv-output](https://github.com/cmeade001/img/blob/master/feature-extraction-cv-output.png?raw=true)
 ```
@@ -54,7 +52,7 @@ fu002<-lm(booking_total~is_weekend+
           +priceact, data=crs01)
 ```
 
-## Phase 4 - Forecasting
+## Phase 3 - Forecasting
 ![forecast-univariate-time-series](https://github.com/cmeade001/img/blob/master/forecast-univariate-ts.png?raw=true)
 ![forecast-regression](https://github.com/cmeade001/img/blob/master/forecast-regression.png?raw=true)
 ![forecast-before-limits](https://github.com/cmeade001/img/blob/master/forecast-before-limits.png?raw=true)
@@ -85,7 +83,7 @@ unifcst$upper <- (b-a)*exp(unifcst$upper)/(1+exp(unifcst$upper)) + a
 unifcst$x <- c
 ```
 
-## Phase 5 - Marginal Returns
+## Phase 4 - Marginal Returns
 
 ```
 #Output ts() object from unifcst & pfcst. Don't know future list prices so using a forecast as a placeholder.
@@ -142,7 +140,7 @@ ptable$maxprofitprice<-ifelse(ptable$priceindex==3,ptable$blprice,ifelse(ptable$
 ptable$maxprofitrooms<-ifelse(ptable$priceindex==3,ptable$blrooms,ifelse(ptable$priceindex==9,ptable$maxrooms,ifelse(ptable$priceindex==10,ptable$minrooms,ifelse(ptable$priceindex==11,ptable$midhrooms,ifelse(ptable$priceindex==12,ptable$midlrooms,NA)))))
 ```
 
-## Phase 6 - Optimal Price & Maximum Profit Outputs
+## Phase 5 - Optimal Price & Maximum Profit Outputs
 ![profit-table](https://github.com/cmeade001/img/blob/master/profit-chart.png?raw=true)
 ![baseline-vs-max-price](https://github.com/cmeade001/img/blob/master/baseline-v-max-price.png?raw=true)
 ![baseline-vs-max-profit](https://github.com/cmeade001/img/blob/master/baseline-v-max-profit.png?raw=true)
