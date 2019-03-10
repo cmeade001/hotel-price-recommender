@@ -23,7 +23,13 @@ This is a truncated version of Gordon Davis' 4 levels of uncertainty, and simply
 5. Marginal Returns
 6. Optimal Price & Maximum Profit Outputs
 
-## Phase 1 - Data Collection & Cleanup
+## Phase 1 - Data Collection, Cleanup & Exploration
+One lesson learned during this project is the time required to gather data in the real world. Additionally, working with small businesses or immature data organizations necessitates more up-front time after collection working on cleanup. The core data used for this project was delivered primarily in PDF format, requiring some manual data entry and table transformation.
+
+In addition, given the industry for the customer of the project - travel - I assumed seasonality would be of paramount importance to the model. I spent time manually researching and compiling local, regional and national events and holidays over the historical period covered in the customer's data - about 4 years. The other challenge presented by seasonal data is that most variables are categorical - eg: day of week, month, holiday, etc. So, after getting input data in a useable format for exploration it also had to be transformed into factors with many more than 2 levels.
+
+One task which was particularly challenging for me (but shouldn't have been, and likely wouldn't be for most people) was creating a factor for days within +/-N days of a holiday - the premise being that proximity
+
 ## Phase 2 - Data Enhancement & Exploration
 ## Phase 3 - Feature Extraction & Model Validation
 ![feature-extraction-final-model](https://github.com/cmeade001/img/blob/master/feature-extraction-final-model.png?raw=true)
